@@ -1,4 +1,4 @@
-import { ILogin, IUser } from '../interfaces/index';
+import { ILogin, ITokenData, IUser } from '../interfaces/index';
 import Model from '../database/models/user';
 import { Bcrypt, JWT, MyError } from '../utils';
 
@@ -10,18 +10,18 @@ export default class Service {
   login = async (loginData: ILogin) => {
     const userData = await this.model.findOne({ where: { email: loginData.email } });
     if (!userData) throw new MyError(401, 'Incorrect email or password');
-    const { password, ...userWithoutPasword } = userData as unknown as IUser;
+    const { password, role, username, email } = userData as unknown as IUser;
 
     const isValid = await this.bcrypt.comparePassword(loginData.password, password);
     if (!isValid) {
       throw new MyError(401, 'Incorrect email or password');
     }
-    return this.jwt.generateToken(userWithoutPasword);
+    return this.jwt.generateToken({ role, username, email });
   };
 
   validate = async (token: string) => {
     const isValid = this.jwt.validateToken(token);
-    const role = isValid?.role;
+    const { data: { role } } = isValid as ITokenData;
     return { role };
   };
 }

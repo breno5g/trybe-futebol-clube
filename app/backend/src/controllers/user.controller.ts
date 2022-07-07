@@ -18,7 +18,7 @@ export default class Controller {
     try {
       const { authorization } = req.headers;
       const token = authorization as string;
-      const role = this.service.validate(token);
+      const role = await this.service.validate(token);
       return res.status(200).json(role);
     } catch (error) {
       next(error);

@@ -14,3 +14,7 @@ export type IToken = {
   username: string,
   email: string
 };
+
+export type ITokenData = {
+  data: IToken
+};
