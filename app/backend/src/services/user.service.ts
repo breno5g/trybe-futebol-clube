@@ -18,4 +18,10 @@ export default class Service {
     }
     return this.jwt.generateToken(userWithoutPasword);
   };
+
+  validate = async (token: string) => {
+    const isValid = this.jwt.validateToken(token);
+    const { role } = isValid;
+    return { role };
+  };
 }
