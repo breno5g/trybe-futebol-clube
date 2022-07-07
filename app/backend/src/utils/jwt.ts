@@ -1,5 +1,5 @@
 import { sign, verify } from 'jsonwebtoken';
-import { IJWT } from '../interfaces';
+import { IJWT, IToken } from '../interfaces';
 
 export default class JWT {
   private jwtSecret = 'jwt_secret';
@@ -13,11 +13,11 @@ export default class JWT {
     return token;
   }
 
-  validateToken(token: string) {
+  validateToken(token: string): IToken | null {
     try {
       const { jwtSecret } = this;
       const result = verify(token, jwtSecret);
-      return result;
+      return result as IToken;
     } catch (error) {
       return null;
     }

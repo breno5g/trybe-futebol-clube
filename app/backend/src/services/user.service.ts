@@ -21,7 +21,7 @@ export default class Service {
 
   validate = async (token: string) => {
     const isValid = this.jwt.validateToken(token);
-    const { role } = isValid;
+    const role = isValid?.role;
     return { role };
   };
 }
