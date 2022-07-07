@@ -1,7 +1,7 @@
 import { Model, STRING } from 'sequelize';
 import db from '.';
 
-export default class user extends Model {
+class user extends Model {
   // static associate(_models) {
   // }
 }
@@ -17,3 +17,5 @@ user.init({
   underscored: true,
   timestamps: false,
 });
+
+export default user;
