@@ -5,4 +5,6 @@ export interface IUser {
   password: string
 }
 
-export type ILogin = Omit<IUser, 'role' | 'password' >;
+export type ILogin = Omit<IUser, 'role' | 'username' >;
+
+export type IJWT = Omit<IUser, 'password'>;
