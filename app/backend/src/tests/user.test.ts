@@ -27,14 +27,13 @@ describe('Teste de login', () => {
   })
 
 
-  it("A rota post /login deve retornar informação do usuário", async () => {
-    const response = await chai.request(app).post('/login');
-    expect(response.status).to.be.equal(200);
-    expect(response.body).to.be.equal({
-      username: 'admin',
-      role: 'admin',
-      email: 'admin@admin.com',
-      password: '$2a$08$xi.Hxk1czAO0nZR..B393u10aED0RQ1N3PAEXQ7HxtLjKPEZBu.PW'
-    });
+  it("A rota post /login deve retornar o token", async () => {
+    const token = await chai.request(app)
+      .post('/login')
+      .send({
+        email: 'admin@admin.com',
+        password: 'secret_admin'
+      }).then((res) => res)
+    expect(token.body).to.have.property("token");
   });
 });
