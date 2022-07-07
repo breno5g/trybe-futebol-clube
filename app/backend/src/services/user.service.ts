@@ -1,8 +1,6 @@
-import JWT from '../utils/jwt';
 import { ILogin, IUser } from '../interfaces/index';
 import Model from '../database/models/user';
-import Bcrypt from '../utils/brypt';
-import MyError from '../utils/MyError';
+import { Bcrypt, JWT, MyError } from '../utils';
 
 export default class Service {
   private model = Model;
