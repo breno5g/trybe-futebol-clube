@@ -9,12 +9,12 @@ export default class Service {
 
   login = async (loginData: ILogin) => {
     const userData = await this.model.findOne({ where: { email: loginData.email } });
-    if (!userData) throw new MyError(403, 'User email or password is incorrect');
+    if (!userData) throw new MyError(401, 'Incorrect email or password');
     const { password, ...userWithoutPasword } = userData as unknown as IUser;
 
     const isValid = await this.bcrypt.comparePassword(loginData.password, password);
     if (!isValid) {
-      throw new MyError(403, 'User email or password is incorrect');
+      throw new MyError(401, 'Incorrect email or password');
     }
     return this.jwt.generateToken(userWithoutPasword);
   };
