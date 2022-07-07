@@ -1,6 +1,5 @@
 import * as express from 'express';
-// import { Request, Response } from 'express';
-// import Service from './services/user.service';
+import error from './middlewares/error.middleware';
 import userRoute from './Routes/user.routes';
 
 class App {
@@ -25,14 +24,9 @@ class App {
 
     this.app.use(express.json());
     this.app.use(accessControl);
-
-    // this.app.get('/teste', async (req: Request, res: Response) => {
-    //   const teste = new Service();
-    //   const data = await teste.login({ email: 'admin@admin.com', password: 'secret_admin' });
-    //   return res.status(200).json({ token: data });
-    // });
-
     this.app.use(userRoute);
+
+    this.app.use(error);
   }
 
   public start(PORT: string | number):void {

@@ -1,7 +1,11 @@
 export default class MyError extends Error {
-  private status: number;
+  private _status: number;
   constructor(status: number, message: string) {
     super(message);
-    this.status = status;
+    this._status = status;
+  }
+
+  get status() {
+    return this._status;
   }
 }
