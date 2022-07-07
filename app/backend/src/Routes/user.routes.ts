@@ -7,5 +7,6 @@ const routes = Router();
 const controller = new Controller();
 
 routes.post('/login', validateLoginBody, controller.login);
+// routes.post('/login/validate', validateLoginBody, controller.login);
 
 export default routes;
