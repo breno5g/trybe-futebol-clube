@@ -1,5 +1,5 @@
 import { Model, STRING } from 'sequelize';
-import sequelize from './index';
+import db from '.';
 
 export default class user extends Model {
   // static associate(_models) {
@@ -12,7 +12,8 @@ user.init({
   email: STRING,
   password: STRING,
 }, {
-  sequelize,
+  sequelize: db,
   modelName: 'user',
+  underscored: true,
   timestamps: false,
 });
