@@ -12,4 +12,14 @@ export default class Controller {
       next(error);
     }
   };
+
+  getById = async (req: Request, res: Response, next: NextFunction) => {
+    try {
+      const { id } = req.params;
+      const teams = await this.service.getById(id);
+      return res.status(200).json(teams);
+    } catch (error) {
+      next(error);
+    }
+  };
 }
