@@ -1,6 +1,7 @@
 import * as express from 'express';
-import { Request, Response } from 'express';
-import Service from './services/user.service';
+// import { Request, Response } from 'express';
+// import Service from './services/user.service';
+import userRoute from './Routes/user.routes';
 
 class App {
   public app: express.Express;
@@ -25,11 +26,13 @@ class App {
     this.app.use(express.json());
     this.app.use(accessControl);
 
-    this.app.get('/teste', async (req: Request, res: Response) => {
-      const teste = new Service();
-      const data = await teste.login({ email: 'admin@admin.com', password: 'secret_admin' });
-      return res.status(200).json({ token: data });
-    });
+    // this.app.get('/teste', async (req: Request, res: Response) => {
+    //   const teste = new Service();
+    //   const data = await teste.login({ email: 'admin@admin.com', password: 'secret_admin' });
+    //   return res.status(200).json({ token: data });
+    // });
+
+    this.app.use(userRoute);
   }
 
   public start(PORT: string | number):void {
