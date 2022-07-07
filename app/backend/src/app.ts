@@ -1,6 +1,6 @@
 import * as express from 'express';
 import { Request, Response } from 'express';
-import user from './database/models/user';
+import Service from './services/user.service';
 
 class App {
   public app: express.Express;
@@ -26,8 +26,9 @@ class App {
     this.app.use(accessControl);
 
     this.app.get('/teste', async (req: Request, res: Response) => {
-      const data = await user.findAll();
-      return res.status(200).json(data);
+      const teste = new Service();
+      const data = await teste.login({ email: 'admin@admin.com', password: 'secret_admin' });
+      return res.status(200).json({ token: data });
     });
   }
 
