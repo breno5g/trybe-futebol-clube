@@ -13,4 +13,15 @@ export default class Controller {
       next(error);
     }
   };
+
+  validate = async (req: Request, res: Response, next: NextFunction) => {
+    try {
+      const { authorization } = req.headers;
+      const token = authorization as string;
+      const role = this.service.validate(token);
+      return res.status(200).json(role);
+    } catch (error) {
+      next(error);
+    }
+  };
 }
