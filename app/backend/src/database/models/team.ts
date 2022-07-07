@@ -14,3 +14,5 @@ team.init({
   underscored: true,
   timestamps: false,
 });
+
+export default team;
