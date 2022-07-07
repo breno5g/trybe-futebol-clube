@@ -1,6 +1,6 @@
 FROM node:16-alpine
 
-WORKDIR /appFrontend
+WORKDIR /app-frontend
 
 COPY . .
 
