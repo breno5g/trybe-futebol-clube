@@ -1,4 +1,6 @@
 import * as express from 'express';
+// import { Request, Response } from 'express';
+// import user from './database/models/user';
 
 class App {
   public app: express.Express;
@@ -22,6 +24,11 @@ class App {
 
     this.app.use(express.json());
     this.app.use(accessControl);
+
+    // this.app.get('/teste', async (req: Request, res: Response) => {
+    //   const data = await user.findAll();
+    //   return res.status(200).json(data);
+    // });
   }
 
   public start(PORT: string | number):void {
