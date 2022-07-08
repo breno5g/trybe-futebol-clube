@@ -36,4 +36,15 @@ describe('Teste de login', () => {
       }).then((res) => res)
     expect(token.body).to.have.property("token");
   });
+
+  it("A rota post /login deve retornar uma mensagem de erro", async () => {
+    const token = await chai.request(app)
+      .post('/login')
+      .send({
+        email: 'fake@fake.com',
+        password: 'secret_fake'
+      }).then((res) => res)
+
+    expect(token.body).to.deep.equal({message:'Incorrect email or password'});
+  });
 });
