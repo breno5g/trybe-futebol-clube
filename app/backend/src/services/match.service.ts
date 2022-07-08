@@ -26,4 +26,10 @@ export default class Service {
 
     return match;
   };
+
+  finish = async (id: number) => {
+    await this.model.update({
+      inProgress: false,
+    }, { where: { id } });
+  };
 }
