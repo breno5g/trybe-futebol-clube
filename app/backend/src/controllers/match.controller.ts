@@ -27,4 +27,14 @@ export default class Controller {
       next(error);
     }
   };
+
+  finish = async (req: Request, res: Response, next: NextFunction) => {
+    try {
+      const id = req.params.id as unknown as number;
+      await this.service.finish(id);
+      return res.status(200).json({ message: 'Finished' });
+    } catch (error) {
+      next(error);
+    }
+  };
 }
