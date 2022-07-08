@@ -4,9 +4,10 @@ import Service from '../services/match.service';
 export default class Controller {
   private service = new Service();
 
-  getAll = async (_req: Request, res: Response, next: NextFunction) => {
+  getAll = async (req: Request, res: Response, next: NextFunction) => {
     try {
-      const teams = await this.service.getAll();
+      const { inProgress } = req.query;
+      const teams = await this.service.getAll(inProgress === 'true');
 
       return res.status(200).json(teams);
     } catch (error) {

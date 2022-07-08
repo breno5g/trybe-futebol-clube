@@ -5,13 +5,14 @@ import Model from '../database/models/match';
 export default class Service {
   private model = Model;
 
-  getAll = async () => {
-    const teams = await this.model.findAll({
+  getAll = async (inProgress: boolean | undefined) => {
+    const matches = await this.model.findAll({
       include: [
         { model: team, as: 'teamHome', attributes: { exclude: ['id'] } },
         { model: team, as: 'teamAway', attributes: { exclude: ['id'] } },
       ],
     });
-    return teams;
+    if (inProgress) return matches.filter((match: any) => match.inProgress === inProgress);
+    return matches;
   };
 }
