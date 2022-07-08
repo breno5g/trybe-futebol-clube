@@ -42,4 +42,10 @@ export default class Service {
       inProgress: false,
     }, { where: { id } });
   };
+
+  goalsUpdate = async (id: number, goals: any) => {
+    const inProgress = await this.model.findOne({ where: { id, inProgress: true } });
+    if (!inProgress) throw new MyError(400, 'This match is not in progress.');
+    await this.model.update({ goals }, { where: { id } });
+  };
 }
