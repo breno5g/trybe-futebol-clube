@@ -1,5 +1,6 @@
 import team from '../database/models/team';
 import Model from '../database/models/match';
+import { IMatch } from '../interfaces';
 // import { MyError } from '../utils';
 
 export default class Service {
@@ -12,7 +13,8 @@ export default class Service {
         { model: team, as: 'teamAway', attributes: { exclude: ['id'] } },
       ],
     });
-    if (inProgress) return matches.filter((match: any) => match.inProgress === inProgress);
-    return matches;
+    const typedMatches = matches as unknown as IMatch[];
+    if (inProgress) return typedMatches.filter((match: IMatch) => match.inProgress === inProgress);
+    return typedMatches;
   };
 }
