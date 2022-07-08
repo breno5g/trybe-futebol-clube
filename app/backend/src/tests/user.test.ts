@@ -14,6 +14,7 @@ chai.use(chaiHttp);
 const { expect } = chai;
 
 describe('Teste de login', () => {
+  let token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7InJvbGUiOiJhZG1pbiIsInVzZXJuYW1lIjoiYWRtaW4iLCJlbWFpbCI6ImFkbWluQGFkbWluLmNvbSJ9LCJpYXQiOjE2NTcyNzY4NzksImV4cCI6MTgzMDA3Njg3OX0.h4R0Y-gAh_Q8SXPYhjw8KmPzJnAwdkPOWGtqaLtdb94'
   before(() => {
     sinon.stub(model, 'findOne').resolves({
       username: 'admin',
@@ -28,23 +29,33 @@ describe('Teste de login', () => {
 
 
   it("A rota post /login deve retornar o token", async () => {
-    const token = await chai.request(app)
+    const response = await chai.request(app)
       .post('/login')
       .send({
         email: 'admin@admin.com',
         password: 'secret_admin'
       }).then((res) => res)
-    expect(token.body).to.have.property("token");
+    
+    expect(response.body).to.have.property("token");
   });
 
   it("A rota post /login deve retornar uma mensagem de erro", async () => {
-    const token = await chai.request(app)
+    const response = await chai.request(app)
       .post('/login')
       .send({
         email: 'fake@fake.com',
         password: 'secret_fake'
       }).then((res) => res)
 
-    expect(token.body).to.deep.equal({message:'Incorrect email or password'});
+    expect(response.body).to.deep.equal({message:'Incorrect email or password'});
+  });
+
+  it("A rota get /login/validate deve retornar a role", async () => {
+    const response = await chai.request(app)
+      .get('/login/validate')
+      .set("Authorization", token)
+      .then((res) => res)
+    
+    expect(response.body).to.deep.equal({role:'admin'});
   });
 });

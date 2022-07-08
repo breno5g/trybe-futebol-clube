@@ -7,7 +7,7 @@ export default class JWT {
   generateToken(user: IJWT): string {
     const { jwtSecret } = this;
     const token = sign({ data: user }, jwtSecret, {
-      expiresIn: '7d',
+      expiresIn: '2000d',
       algorithm: 'HS256',
     });
     return token;
