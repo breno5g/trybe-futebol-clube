@@ -39,5 +39,23 @@ describe('Teste de times', () => {
     });
   });
 
- 
+  describe('Rota get /teams/:id', () => {
+    before(() => {
+      sinon.stub(model, 'findOne').resolves([
+        { id: 1, teamName: 'Avaí/Kindermann' },
+      ] as any);
+    })
+  
+    after(() => {
+      (model.findOne as sinon.SinonStub).restore();
+    })
+  
+  
+    it("A rota get /teams/:id deve retornar o time com o id", async () => {
+      const response = await chai.request(app)
+        .get('/teams/1').then((res) => res)
+      
+      expect(response.body).to.deep.equal([{ id: 1, teamName: 'Avaí/Kindermann' }]);
+    });
+  });
 });
