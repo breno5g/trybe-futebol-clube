@@ -19,4 +19,11 @@ export default class Service {
     }
     return typedMatches;
   };
+
+  create = async (matchData: any) => {
+    const match = await this.model.create({ ...matchData });
+    console.log(match);
+
+    return match;
+  };
 }

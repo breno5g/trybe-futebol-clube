@@ -12,7 +12,10 @@ Match.init({
   homeTeamGoals: INTEGER,
   awayTeam: INTEGER,
   awayTeamGoals: INTEGER,
-  inProgress: BOOLEAN,
+  inProgress: {
+    type: BOOLEAN,
+    defaultValue: true,
+  },
 }, {
   sequelize: db,
   modelName: 'match',
