@@ -6,5 +6,6 @@ const routes = Router();
 const controller = new Controller();
 
 routes.get('/', controller.getAll);
+routes.post('/', controller.create);
 
 export default routes;
