@@ -66,6 +66,6 @@ describe('Teste de login', () => {
       .then((res) => res)
     
     expect(response.status).to.equal(401);
-    expect(response.body).to.deep.equal({ message: 'Token invalid' });
+    expect(response.body).to.deep.equal({ message: 'Token must be a valid token' });
   });
 });
