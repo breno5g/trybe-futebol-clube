@@ -26,6 +26,12 @@ export default class Service {
     if (homeTeam === awayTeam) {
       throw new MyError(401, 'It is not possible to create a match with two equal teams');
     }
+    const homeTeamExists = await this.model.findOne({ where: { id: homeTeam } });
+    const awayTeamExists = await this.model.findOne({ where: { id: awayTeam } });
+
+    if (!homeTeamExists || !awayTeamExists) {
+      throw new MyError(404, 'There is no team with such id!');
+    }
     const match = await this.model.create({ ...matchData });
 
     return match;
