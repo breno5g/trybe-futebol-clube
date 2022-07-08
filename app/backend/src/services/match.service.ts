@@ -1,6 +1,6 @@
 import team from '../database/models/team';
 import Model from '../database/models/match';
-import { IMatch, IMatchData } from '../interfaces';
+import { IGoals, IMatch, IMatchData } from '../interfaces';
 import { MyError } from '../utils';
 
 export default class Service {
@@ -43,7 +43,7 @@ export default class Service {
     }, { where: { id } });
   };
 
-  goalsUpdate = async (id: number, goals: any) => {
+  goalsUpdate = async (id: number, goals: IGoals) => {
     const inProgress = await this.model.findOne({ where: { id, inProgress: true } });
     if (!inProgress) {
       throw new MyError(400, 'This match is not in progress.');
