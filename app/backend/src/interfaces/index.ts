@@ -33,3 +33,5 @@ export type IMatch = {
     teamName: string
   }
 };
+
+export type IMatchData = Omit<IMatch, 'id' | 'inProgress' | 'teamHome' | 'teamAway'>;

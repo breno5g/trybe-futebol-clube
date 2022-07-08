@@ -1,6 +1,6 @@
 import team from '../database/models/team';
 import Model from '../database/models/match';
-import { IMatch } from '../interfaces';
+import { IMatch, IMatchData } from '../interfaces';
 // import { MyError } from '../utils';
 
 export default class Service {
@@ -20,9 +20,8 @@ export default class Service {
     return typedMatches;
   };
 
-  create = async (matchData: any) => {
+  create = async (matchData: IMatchData) => {
     const match = await this.model.create({ ...matchData });
-    console.log(match);
 
     return match;
   };
