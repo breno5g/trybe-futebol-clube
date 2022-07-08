@@ -7,7 +7,9 @@ export default class Controller {
   getAll = async (req: Request, res: Response, next: NextFunction) => {
     try {
       const { inProgress } = req.query;
-      const teams = await this.service.getAll(inProgress === 'true');
+      let isInProgress;
+      if (inProgress) isInProgress = inProgress === 'true';
+      const teams = await this.service.getAll(isInProgress);
 
       return res.status(200).json(teams);
     } catch (error) {

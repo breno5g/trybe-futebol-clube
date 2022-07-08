@@ -14,6 +14,7 @@ export default class Service {
       ],
     });
     const typedMatches = matches as unknown as IMatch[];
+
     if (inProgress !== undefined) {
       return typedMatches.filter((match: IMatch) => match.inProgress === inProgress);
     }
