@@ -37,4 +37,15 @@ export default class Controller {
       next(error);
     }
   };
+
+  goalsUpdate = async (req: Request, res: Response, next: NextFunction) => {
+    try {
+      const id = req.params.id as unknown as number;
+      const { homeTeamGoals, awayTeamGoals } = req.body;
+      await this.service.goalsUpdate(id, { homeTeamGoals, awayTeamGoals });
+      return res.status(200).json({ message: 'Updated successfuly' });
+    } catch (error) {
+      next(error);
+    }
+  };
 }
