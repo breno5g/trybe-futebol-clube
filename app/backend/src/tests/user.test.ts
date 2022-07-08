@@ -58,4 +58,14 @@ describe('Teste de login', () => {
     
     expect(response.body).to.deep.equal({role:'admin'});
   });
+
+  it("A rota get /login/validate deve retornar um erro", async () => {
+    const response = await chai.request(app)
+      .get('/login/validate')
+      .set("Authorization", "Esse num passa nem com milagre")
+      .then((res) => res)
+    
+    expect(response.status).to.equal(401);
+    expect(response.body).to.deep.equal({ message: 'Token invalid' });
+  });
 });
